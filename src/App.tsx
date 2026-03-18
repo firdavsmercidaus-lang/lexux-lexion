@@ -3,19 +3,16 @@ import {
   Search, 
   Globe, 
   Languages, 
-  Cpu, 
   Terminal, 
   ChevronRight, 
   Activity,
   Zap,
   Layers,
-  Box
+  Box,
+  BookOpen
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GoogleGenAI, Type } from "@google/genai";
 import { languages, dictionary, DictionaryEntry } from './data/dictionary';
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export default function App() {
   const [sourceLang, setSourceLang] = useState('en');
@@ -25,8 +22,6 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<'word'>('word');
   const [systemStatus, setSystemStatus] = useState('READY');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-  const [isNeuralLoading, setIsNeuralLoading] = useState(false);
-  const [neuralResult, setNeuralResult] = useState<DictionaryEntry | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -55,47 +50,8 @@ export default function App() {
 
   const handleEntryClick = (entry: DictionaryEntry) => {
     setSelectedEntry(entry);
-    setNeuralResult(null);
     setSystemStatus('ANALYZING');
     setTimeout(() => setSystemStatus('READY'), 800);
-  };
-
-  const handleNeuralSearch = async () => {
-    if (!searchQuery.trim()) return;
-    
-    setIsNeuralLoading(true);
-    setSystemStatus('NEURAL_SYNC');
-    
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: `Translate the word "${searchQuery}" from ${languages.find(l => l.id === sourceLang)?.name} to all these languages: ${languages.map(l => l.name).join(', ')}. Return ONLY a JSON object with this structure: { "id": "${searchQuery.toLowerCase()}", "category": "word", "translations": { "en": "...", "uz": "...", "ru": "...", "de": "...", "fr": "...", "es": "...", "tr": "...", "ar": "...", "zh": "...", "ja": "..." } }`,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              id: { type: Type.STRING },
-              category: { type: Type.STRING },
-              translations: {
-                type: Type.OBJECT,
-                properties: languages.reduce((acc, lang) => ({ ...acc, [lang.id]: { type: Type.STRING } }), {})
-              }
-            }
-          }
-        }
-      });
-
-      const data = JSON.parse(response.text);
-      setNeuralResult(data);
-      setSelectedEntry(data);
-      setSystemStatus('READY');
-    } catch (error) {
-      console.error("Neural Search Error:", error);
-      setSystemStatus('ERROR');
-    } finally {
-      setIsNeuralLoading(false);
-    }
   };
 
   return (
@@ -104,11 +60,11 @@ export default function App() {
       <header className="flex justify-between items-center edex-border glass-panel p-3 px-6 z-10">
         <div className="flex items-center gap-4">
           <div className="p-2 bg-neon-cyan/20 rounded-sm border border-neon-cyan">
-            <Cpu className="w-6 h-6 text-neon-cyan" />
+            <BookOpen className="w-6 h-6 text-neon-cyan" />
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-widest text-neon-cyan uppercase">Nexus Lexicon v4.0</h1>
-            <p className="text-[10px] opacity-50 uppercase tracking-tighter">Neural Translation Interface // Secure Connection</p>
+            <h1 className="text-xl font-bold tracking-widest text-neon-cyan uppercase">Universal Dictionary</h1>
+            <p className="text-[10px] opacity-50 uppercase tracking-tighter">Multi-Language Database // Secure Connection</p>
           </div>
         </div>
         
@@ -180,10 +136,10 @@ export default function App() {
 
         {/* Center: Dictionary List */}
         <section className="flex-1 flex flex-col gap-4 overflow-hidden">
-          <div className="flex gap-2">
+          <div className="flex">
             <button
               onClick={() => setSelectedCategory('word')}
-              className={`flex-1 p-2 edex-border glass-panel text-[10px] font-bold uppercase tracking-widest transition-all ${
+              className={`flex-1 p-3 edex-border glass-panel text-xs font-bold uppercase tracking-[0.3em] transition-all ${
                 selectedCategory === 'word' ? 'bg-neon-cyan/20 text-neon-cyan border-neon-cyan' : 'opacity-50 hover:opacity-100'
               }`}
             >
@@ -216,11 +172,11 @@ export default function App() {
                     key={entry.id}
                     onClick={() => handleEntryClick(entry)}
                     className={`w-full grid grid-cols-2 p-4 text-left text-sm border-b border-white/5 transition-all hover:bg-white/5 group ${
-                      selectedEntry?.id === entry.id && !neuralResult ? 'bg-neon-cyan/10 border-l-4 border-l-neon-cyan' : ''
+                      selectedEntry?.id === entry.id ? 'bg-neon-cyan/10 border-l-4 border-l-neon-cyan' : ''
                     }`}
                   >
                     <div className="font-bold flex items-center gap-2">
-                      <ChevronRight className={`w-3 h-3 text-neon-cyan transition-transform ${selectedEntry?.id === entry.id && !neuralResult ? 'rotate-90' : ''}`} />
+                      <ChevronRight className={`w-3 h-3 text-neon-cyan transition-transform ${selectedEntry?.id === entry.id ? 'rotate-90' : ''}`} />
                       {entry.translations[sourceLang]}
                     </div>
                     <div className="text-neon-amber font-medium opacity-80 group-hover:opacity-100">
@@ -231,32 +187,7 @@ export default function App() {
               ) : (
                 <div className="flex flex-col items-center justify-center h-full p-8 text-center gap-4">
                   <Terminal className="w-12 h-12 opacity-30" />
-                  <p className="text-xs uppercase tracking-[0.2em] opacity-50">Local Database Exhausted</p>
-                  <button
-                    onClick={handleNeuralSearch}
-                    disabled={isNeuralLoading}
-                    className="w-full p-3 edex-border bg-neon-cyan/10 text-neon-cyan text-[10px] font-bold uppercase tracking-widest hover:bg-neon-cyan/20 transition-all disabled:opacity-50"
-                  >
-                    {isNeuralLoading ? '[ SYNCING NEURAL CORE... ]' : '[ INITIALIZE NEURAL TRANSLATION ]'}
-                  </button>
-                </div>
-              )}
-              
-              {neuralResult && (
-                <div className="p-4 bg-neon-cyan/5 border-t border-neon-cyan/20">
-                  <div className="text-[10px] text-neon-cyan uppercase mb-2">Neural Result:</div>
-                  <button
-                    onClick={() => handleEntryClick(neuralResult)}
-                    className={`w-full grid grid-cols-2 p-4 text-left text-sm border edex-border transition-all bg-neon-cyan/10 border-neon-cyan`}
-                  >
-                    <div className="font-bold flex items-center gap-2 text-neon-cyan">
-                      <Zap className="w-3 h-3 animate-pulse" />
-                      {neuralResult.translations[sourceLang]}
-                    </div>
-                    <div className="text-neon-amber font-bold">
-                      {neuralResult.translations[targetLang]}
-                    </div>
-                  </button>
+                  <p className="text-xs uppercase tracking-[0.2em] opacity-50">No Results Found in Database</p>
                 </div>
               )}
             </div>
@@ -303,7 +234,7 @@ export default function App() {
                 </motion.div>
               ) : (
                 <div className="flex-1 flex items-center justify-center opacity-20 italic text-xs text-center">
-                  SELECT AN ENTRY TO INITIALIZE NEURAL ANALYSIS
+                  SELECT AN ENTRY TO VIEW DETAILS
                 </div>
               )}
             </AnimatePresence>
@@ -332,14 +263,15 @@ export default function App() {
 
               <div className="space-y-2">
                 <div className="flex justify-between text-[10px] uppercase">
-                  <span>Neural Sync</span>
-                  <span>{Math.floor(Math.random() * 10 + 90)}%</span>
+                  <span>Database Status</span>
+                  <span>ONLINE</span>
                 </div>
                 <div className="h-1 bg-white/10 overflow-hidden">
                   <motion.div 
                     className="h-full bg-neon-green"
-                    animate={{ width: ['90%', '98%', '92%'] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                    initial={{ width: '100%' }}
+                    animate={{ opacity: [1, 0.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
                   />
                 </div>
               </div>
