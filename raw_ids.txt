@@ -1,14 +1,3 @@
-export interface Translation {
-  [key: string]: string;
-}
-
-export interface DictionaryEntry {
-  id: string;
-  translations: Translation;
-  category: 'word' | 'country';
-}
-
-export const languages = [
   { id: 'en', name: 'English', flag: '🇺🇸' },
   { id: 'uz', name: 'O\'zbek', flag: '🇺🇿' },
   { id: 'ru', name: 'Русский', flag: '🇷🇺' },
@@ -19,10 +8,6 @@ export const languages = [
   { id: 'ar', name: 'العربية', flag: '🇸🇦' },
   { id: 'zh', name: '中文', flag: '🇨🇳' },
   { id: 'ja', name: '日本語', flag: '🇯🇵' },
-].sort((a, b) => a.name.localeCompare(b.name));
-
-export const dictionary: DictionaryEntry[] = [
-  // A
   { id: 'apple', category: 'word', translations: { en: 'Apple', uz: 'Olma', ru: 'Яблоко', de: 'Apfel', fr: 'Pomme', es: 'Manzana', tr: 'Elma', ar: 'تفاحة', zh: '苹果', ja: 'りんご' } },
   { id: 'airplane', category: 'word', translations: { en: 'Airplane', uz: 'Samolyot', ru: 'Самолет', de: 'Flugzeug', fr: 'Avion', es: 'Avión', tr: 'Uçak', ar: 'طائرة', zh: '飞机', ja: '飛行機' } },
   { id: 'afghanistan', category: 'country', translations: { en: 'Afghanistan', uz: 'Afg\'oniston', ru: 'Афганистан', de: 'Afghanistan', fr: 'Afghanistan', es: 'Afganistán', tr: 'Afganistan', ar: 'أفغانستان', zh: '阿富汗', ja: 'アフガニスタン' } },
@@ -35,25 +20,21 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'australia', category: 'country', translations: { en: 'Australia', uz: 'Avstraliya', ru: 'Австралия', de: 'Australien', fr: 'Australie', es: 'Australia', tr: 'Avusturya', ar: 'أستراليا', zh: '澳大利亚', ja: 'オーストラリア' } },
   { id: 'austria', category: 'country', translations: { en: 'Austria', uz: 'Avstriya', ru: 'Австрия', de: 'Österreich', fr: 'Autriche', es: 'Austria', tr: 'Avusturya', ar: 'النمسا', zh: '奥地利', ja: 'オーストリア' } },
   { id: 'azerbaijan', category: 'country', translations: { en: 'Azerbaijan', uz: 'Ozarbayjon', ru: 'Азербайджан', de: 'Aserbaidschan', fr: 'Azerbaïdjan', es: 'Azerbaiyán', tr: 'Azerbaycan', ar: 'أذربيجان', zh: '阿塞拜疆', ja: 'アゼルバイジャン' } },
-  // B
   { id: 'book', category: 'word', translations: { en: 'Book', uz: 'Kitob', ru: 'Книга', de: 'Buch', fr: 'Livre', es: 'Libro', tr: 'Kitap', ar: 'كتاب', zh: '书', ja: '本' } },
   { id: 'bahamas', category: 'country', translations: { en: 'Bahamas', uz: 'Bagama orollari', ru: 'Багамы', de: 'Bahamas', fr: 'Bahamas', es: 'Bahamas', tr: 'Bahamalar', ar: 'جزر البهاما', zh: '巴哈马', ja: 'バハマ' } },
   { id: 'bahrain', category: 'country', translations: { en: 'Bahrain', uz: 'Bahrayn', ru: 'Бахрейн', de: 'Bahrain', fr: 'Bahreïn', es: 'Baréin', tr: 'Bahreyn', ar: 'البحرين', zh: '巴林', ja: 'バーレーン' } },
   { id: 'bangladesh', category: 'country', translations: { en: 'Bangladesh', uz: 'Bangladesh', ru: 'Бангладеш', de: 'Bangladesch', fr: 'Bangladesh', es: 'Bangladés', tr: 'Bangladeş', ar: 'بغلاديش', zh: '孟加拉国', ja: 'バングラデシュ' } },
   { id: 'belgium', category: 'country', translations: { en: 'Belgium', uz: 'Belgiya', ru: 'Бельгия', de: 'Belgien', fr: 'Belgique', es: 'Bélgica', tr: 'Belçika', ar: 'بلجيكا', zh: '比利时', ja: 'ベルギー' } },
   { id: 'brazil', category: 'country', translations: { en: 'Brazil', uz: 'Braziliya', ru: 'Бразилия', de: 'Brasilien', fr: 'Brésil', es: 'Brasil', tr: 'Brezilya', ar: 'البرازيل', zh: '巴西', ja: 'ブラジル' } },
-  // C
   { id: 'car', category: 'word', translations: { en: 'Car', uz: 'Mashina', ru: 'Машина', de: 'Auto', fr: 'Voiture', es: 'Coche', tr: 'Araba', ar: 'سيارة', zh: '汽车', ja: '車' } },
   { id: 'canada', category: 'country', translations: { en: 'Canada', uz: 'Kanada', ru: 'Канада', de: 'Kanada', fr: 'Canada', es: 'Canadá', tr: 'Kanada', ar: 'كندا', zh: '加拿大', ja: 'カナダ' } },
   { id: 'china', category: 'country', translations: { en: 'China', uz: 'Xitoy', ru: 'Китай', de: 'China', fr: 'Chine', es: 'China', tr: 'Çin', ar: 'الصين', zh: '中国', ja: '中国' } },
   { id: 'colombia', category: 'country', translations: { en: 'Colombia', uz: 'Kolumbiya', ru: 'Колумбия', de: 'Kolumbien', fr: 'Colombie', es: 'Colombia', tr: 'Kolombiya', ar: 'كولومبيا', zh: '哥伦比亚', ja: 'コロンビア' } },
   { id: 'cuba', category: 'country', translations: { en: 'Cuba', uz: 'Kuba', ru: 'Куба', de: 'Kuba', fr: 'Cuba', es: 'Cuba', tr: 'Küba', ar: 'كوبا', zh: '古巴', ja: 'キューバ' } },
-  // D
   { id: 'door', category: 'word', translations: { en: 'Door', uz: 'Eshik', ru: 'Дверь', de: 'Tür', fr: 'Porte', es: 'Puerta', tr: 'Kapı', ar: 'باب', zh: '门', ja: 'ドア' } },
   { id: 'denmark', category: 'country', translations: { en: 'Denmark', uz: 'Daniya', ru: 'Дания', de: 'Dänemark', fr: 'Danemark', es: 'Dinamarca', tr: 'Danimarka', ar: 'الدنمارك', zh: '丹麦', ja: 'デンマーク' } },
   { id: 'djibouti', category: 'country', translations: { en: 'Djibouti', uz: 'Jibuti', ru: 'Джибути', de: 'Dschibuti', fr: 'Djibouti', es: 'Yibuti', tr: 'Cibuti', ar: 'جيبوتي', zh: '吉布提', ja: 'ジブチ' } },
   { id: 'dominica', category: 'country', translations: { en: 'Dominica', uz: 'Dominika', ru: 'Доминика', de: 'Dominica', fr: 'Dominique', es: 'Dominica', tr: 'Dominika', ar: 'دومينيكا', zh: '多米尼克', ja: 'ドミニカ' } },
-  // E
   { id: 'eat', category: 'word', translations: { en: 'Eat', uz: 'Yemoq', ru: 'Есть', de: 'Essen', fr: 'Manger', es: 'Comer', tr: 'Yemek', ar: 'أكل', zh: '吃', ja: '食べる' } },
   { id: 'eye', category: 'word', translations: { en: 'Eye', uz: 'Ko\'z', ru: 'Глаз', de: 'Auge', fr: 'Œil', es: 'Ojo', tr: 'Göz', ar: 'عين', zh: '眼睛', ja: '目' } },
   { id: 'ecuador', category: 'country', translations: { en: 'Ecuador', uz: 'Ekvador', ru: 'Эквадор', de: 'Ecuador', fr: 'Équateur', es: 'Ecuador', tr: 'Ekvador', ar: 'الإكوادور', zh: '厄瓜多尔', ja: 'エクアドル' } },
@@ -61,12 +42,10 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'el-salvador', category: 'country', translations: { en: 'El Salvador', uz: 'El Salvador', ru: 'Сальвадор', de: 'El Salvador', fr: 'Salvador', es: 'El Salvador', tr: 'El Salvador', ar: 'السلفادور', zh: '萨尔瓦多', ja: 'エルサルバドル' } },
   { id: 'estonia', category: 'country', translations: { en: 'Estonia', uz: 'Estoniya', ru: 'Эстония', de: 'Estland', fr: 'Estonie', es: 'Estonia', tr: 'Estonya', ar: 'إستونيا', zh: '爱沙尼亚', ja: 'エストニア' } },
   { id: 'ethiopia', category: 'country', translations: { en: 'Ethiopia', uz: 'Efiopiya', ru: 'Эфиопия', de: 'Äthiopien', fr: 'Éthiopie', es: 'Etiopía', tr: 'Etiyopya', ar: 'إثيوبيا', zh: '埃塞俄比亚', ja: 'エチオピア' } },
-  // F
   { id: 'fish', category: 'word', translations: { en: 'Fish', uz: 'Baliq', ru: 'Рыба', de: 'Fisch', fr: 'Poisson', es: 'Pez', tr: 'Balık', ar: 'سمك', zh: '鱼', ja: '魚' } },
   { id: 'fiji', category: 'country', translations: { en: 'Fiji', uz: 'Fiji', ru: 'Фиджи', de: 'Fidschi', fr: 'Fidji', es: 'Fiyi', tr: 'Fiji', ar: 'فيجي', zh: '斐济', ja: 'フィジー' } },
   { id: 'finland', category: 'country', translations: { en: 'Finland', uz: 'Finlyandiya', ru: 'Финляндия', de: 'Finnland', fr: 'Finlande', es: 'Finlandia', tr: 'Finlandiya', ar: 'فنلندا', zh: '芬兰', ja: 'フィンランド' } },
   { id: 'france', category: 'country', translations: { en: 'France', uz: 'Fransiya', ru: 'Франция', de: 'Frankreich', fr: 'France', es: 'Francia', tr: 'Fransa', ar: 'فرنسا', zh: '法国', ja: 'フランス' } },
-  // G
   { id: 'green', category: 'word', translations: { en: 'Green', uz: 'Yashil', ru: 'Зеленый', de: 'Grün', fr: 'Vert', es: 'Verde', tr: 'Yeşil', ar: 'أخضر', zh: '绿色', ja: '緑' } },
   { id: 'gabon', category: 'country', translations: { en: 'Gabon', uz: 'Gabon', ru: 'Габон', de: 'Gabun', fr: 'Gabon', es: 'Gabón', tr: 'Gabon', ar: 'الغابون', zh: '加蓬', ja: 'ガボン' } },
   { id: 'gambia', category: 'country', translations: { en: 'Gambia', uz: 'Gambiya', ru: 'Гамбия', de: 'Gambia', fr: 'Gambie', es: 'Gambia', tr: 'Gambiya', ar: 'غامبيا', zh: '冈比亚', ja: 'ガンビア' } },
@@ -74,13 +53,11 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'germany', category: 'country', translations: { en: 'Germany', uz: 'Germaniya', ru: 'Германия', de: 'Deutschland', fr: 'Allemagne', es: 'Alemania', tr: 'Almanya', ar: 'ألمانيا', zh: '德国', ja: 'ドイツ' } },
   { id: 'ghana', category: 'country', translations: { en: 'Ghana', uz: 'Gana', ru: 'Гана', de: 'Ghana', fr: 'Ghana', es: 'Ghana', tr: 'Gana', ar: 'غانا', zh: '加纳', ja: 'ガーナ' } },
   { id: 'greece', category: 'country', translations: { en: 'Greece', uz: 'Gretsiya', ru: 'Греция', de: 'Griechenland', fr: 'Grèce', es: 'Grecia', tr: 'Yunanistan', ar: 'اليونان', zh: '希腊', ja: 'ギリシャ' } },
-  // H
   { id: 'hand', category: 'word', translations: { en: 'Hand', uz: 'Qo\'l', ru: 'Рука', de: 'Hand', fr: 'Main', es: 'Mano', tr: 'El', ar: 'يد', zh: '手', ja: '手' } },
   { id: 'house', category: 'word', translations: { en: 'House', uz: 'Uy', ru: 'Дом', de: 'Haus', fr: 'Maison', es: 'Casa', tr: 'Ev', ar: 'بيت', zh: '房子', ja: '家' } },
   { id: 'haiti', category: 'country', translations: { en: 'Haiti', uz: 'Gaiti', ru: 'Гаити', de: 'Haiti', fr: 'Haïti', es: 'Haití', tr: 'Haiti', ar: 'هايتي', zh: '海地', ja: 'ハイチ' } },
   { id: 'honduras', category: 'country', translations: { en: 'Honduras', uz: 'Gonduras', ru: 'Гондурас', de: 'Honduras', fr: 'Honduras', es: 'Honduras', tr: 'Honduras', ar: 'هندوراس', zh: '洪都拉斯', ja: 'ホンジュラス' } },
   { id: 'hungary', category: 'country', translations: { en: 'Hungary', uz: 'Vengriya', ru: 'Венгрия', de: 'Ungarn', fr: 'Hongrie', es: 'Hungría', tr: 'Macaristan', ar: 'المجر', zh: '匈牙利', ja: 'ハンガリー' } },
-  // I
   { id: 'ice', category: 'word', translations: { en: 'Ice', uz: 'Muz', ru: 'Лед', de: 'Eis', fr: 'Glace', es: 'Hielo', tr: 'Buz', ar: 'ثلج', zh: '冰', ja: '氷' } },
   { id: 'island', category: 'word', translations: { en: 'Island', uz: 'Orol', ru: 'Остров', de: 'Insel', fr: 'Île', es: 'Isla', tr: 'Ada', ar: 'جزيرة', zh: '岛', ja: '島' } },
   { id: 'iceland', category: 'country', translations: { en: 'Iceland', uz: 'Islandiya', ru: 'Исландия', de: 'Island', fr: 'Islande', es: 'Islandia', tr: 'İzlanda', ar: 'آيسلندا', zh: '冰岛', ja: 'アイスランド' } },
@@ -91,19 +68,16 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'ireland', category: 'country', translations: { en: 'Ireland', uz: 'Irlandiya', ru: 'Ирландия', de: 'Irland', fr: 'Irlande', es: 'Irlanda', tr: 'İrlanda', ar: 'أيرلندا', zh: '爱尔兰', ja: 'アイルランド' } },
   { id: 'israel', category: 'country', translations: { en: 'Israel', uz: 'Isroil', ru: 'Израиль', de: 'Israel', fr: 'Israël', es: 'Israel', tr: 'İsrail', ar: 'إسرائيل', zh: '以色列', ja: 'イスラエル' } },
   { id: 'italy', category: 'country', translations: { en: 'Italy', uz: 'Italiya', ru: 'Италия', de: 'Italien', fr: 'Italie', es: 'Italia', tr: 'İtalya', ar: 'إيطاليا', zh: '意大利', ja: 'イタリア' } },
-  // J
   { id: 'juice', category: 'word', translations: { en: 'Juice', uz: 'Sharbat', ru: 'Сок', de: 'Saft', fr: 'Jus', es: 'Jugo', tr: 'Meyve suyu', ar: 'عصير', zh: '果汁', ja: 'ジュース' } },
   { id: 'jamaica', category: 'country', translations: { en: 'Jamaica', uz: 'Yamayka', ru: 'Ямайка', de: 'Jamaika', fr: 'Jamaïque', es: 'Jamaica', tr: 'Jamaika', ar: 'جامايكا', zh: '牙买加', ja: 'ジャマイカ' } },
   { id: 'japan', category: 'country', translations: { en: 'Japan', uz: 'Yaponiya', ru: 'Япония', de: 'Japan', fr: 'Japon', es: 'Japón', tr: 'Japonya', ar: 'اليابان', zh: '日本', ja: '日本' } },
   { id: 'jordan', category: 'country', translations: { en: 'Jordan', uz: 'Iordaniya', ru: 'Иордания', de: 'Jordanien', fr: 'Jordanie', es: 'Jordania', tr: 'Ürdün', ar: 'الأردن', zh: '约旦', ja: 'ヨルダン' } },
-  // K
   { id: 'key', category: 'word', translations: { en: 'Key', uz: 'Kalit', ru: 'Ключ', de: 'Schlüssel', fr: 'Clé', es: 'Llave', tr: 'Anahtar', ar: 'مفتاح', zh: '钥匙', ja: '鍵' } },
   { id: 'kazakhstan', category: 'country', translations: { en: 'Kazakhstan', uz: 'Qozog\'iston', ru: 'Казахстан', de: 'Kasachstan', fr: 'Kazakhstan', es: 'Kazajistán', tr: 'Kazakistan', ar: 'كازاخستان', zh: '哈萨克斯坦', ja: 'カザフスタン' } },
   { id: 'kenya', category: 'country', translations: { en: 'Kenya', uz: 'Keniya', ru: 'Кения', de: 'Kenia', fr: 'Kenya', es: 'Kenia', tr: 'Kenya', ar: 'كينيا', zh: '肯尼亚', ja: 'ケニア' } },
   { id: 'kiribati', category: 'country', translations: { en: 'Kiribati', uz: 'Kiribati', ru: 'Кирибати', de: 'Kiribati', fr: 'Kiribati', es: 'Kiribati', tr: 'Kiribati', ar: 'كيريباتي', zh: '基里巴斯', ja: 'キリバス' } },
   { id: 'kuwait', category: 'country', translations: { en: 'Kuwait', uz: 'Quvayt', ru: 'Кувейт', de: 'Kuwait', fr: 'Koweït', es: 'Kuwait', tr: 'Kuveyt', ar: 'الكويت', zh: '科威特', ja: 'クウェート' } },
   { id: 'kyrgyzstan', category: 'country', translations: { en: 'Kyrgyzstan', uz: 'Qirg\'iziston', ru: 'Киргизия', de: 'Kirgisistan', fr: 'Kirghizistan', es: 'Kirguistán', tr: 'Kırgızistan', ar: 'قيرغيزستان', zh: '吉尔吉斯斯坦', ja: 'キルギス' } },
-  // L
   { id: 'lamp', category: 'word', translations: { en: 'Lamp', uz: 'Chiroq', ru: 'Лампа', de: 'Lampe', fr: 'Lampe', es: 'Lámpara', tr: 'Lamba', ar: 'مصباح', zh: '灯', ja: 'ランプ' } },
   { id: 'love', category: 'word', translations: { en: 'Love', uz: 'Sevgi', ru: 'Любовь', de: 'Liebe', fr: 'Amour', es: 'Amor', tr: 'Aşk', ar: 'حب', zh: '爱', ja: '愛' } },
   { id: 'laos', category: 'country', translations: { en: 'Laos', uz: 'Laos', ru: 'Лаос', de: 'Laos', fr: 'Laos', es: 'Laos', tr: 'Laos', ar: 'لاوس', zh: '老挝', ja: 'ラオス' } },
@@ -113,7 +87,6 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'libya', category: 'country', translations: { en: 'Libya', uz: 'Liviya', ru: 'Ливия', de: 'Libyen', fr: 'Libye', es: 'Libia', tr: 'Libya', ar: 'ليبيا', zh: '利比亚', ja: 'リビア' } },
   { id: 'lithuania', category: 'country', translations: { en: 'Lithuania', uz: 'Litva', ru: 'Литва', de: 'Litauen', fr: 'Lituanie', es: 'Lituania', tr: 'Litvanya', ar: 'ليتوانيا', zh: '立陶宛', ja: 'リトアニア' } },
   { id: 'luxembourg', category: 'country', translations: { en: 'Luxembourg', uz: 'Lyuksemburg', ru: 'Люксембург', de: 'Luxemburg', fr: 'Luxembourg', es: 'Luxemburgo', tr: 'Lüksemburg', ar: 'لوكسمبورغ', zh: '卢森堡', ja: 'ルクセンブルク' } },
-  // M
   { id: 'moon', category: 'word', translations: { en: 'Moon', uz: 'Oy', ru: 'Луна', de: 'Mond', fr: 'Lune', es: 'Luna', tr: 'Ay', ar: 'قمر', zh: '月亮', ja: '月' } },
   { id: 'mountain', category: 'word', translations: { en: 'Mountain', uz: 'Tog\'', ru: 'Гора', de: 'Berg', fr: 'Montagne', es: 'Montaña', tr: 'Dağ', ar: 'جبل', zh: '山', ja: '山' } },
   { id: 'madagascar', category: 'country', translations: { en: 'Madagascar', uz: 'Madagaskar', ru: 'Мадагаскар', de: 'Madagaskar', fr: 'Madagascar', es: 'Madagascar', tr: 'Madagaskar', ar: 'مدغشقر', zh: '马达加斯加', ja: 'マダガスカル' } },
@@ -125,7 +98,6 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'monaco', category: 'country', translations: { en: 'Monaco', uz: 'Monako', ru: 'Монако', de: 'Monaco', fr: 'Monaco', es: 'Mónaco', tr: 'Monako', ar: 'موناكو', zh: '摩纳哥', ja: 'モナコ' } },
   { id: 'mongolia', category: 'country', translations: { en: 'Mongolia', uz: 'Mo\'g\'uliston', ru: 'Монголия', de: 'Mongolei', fr: 'Mongolie', es: 'Mongolia', tr: 'Moğolistan', ar: 'منغوليا', zh: '蒙古', ja: 'モンゴル' } },
   { id: 'morocco', category: 'country', translations: { en: 'Morocco', uz: 'Marokash', ru: 'Марокко', de: 'Marokko', fr: 'Maroc', es: 'Marruecos', tr: 'Fas', ar: 'المغرب', zh: '摩洛哥', ja: 'モロッコ' } },
-  // N
   { id: 'night', category: 'word', translations: { en: 'Night', uz: 'Tun', ru: 'Ночь', de: 'Nacht', fr: 'Nuit', es: 'Noche', tr: 'Gece', ar: 'ليل', zh: '夜', ja: '夜' } },
   { id: 'number', category: 'word', translations: { en: 'Number', uz: 'Raqam', ru: 'Число', de: 'Nummer', fr: 'Nombre', es: 'Número', tr: 'Sayı', ar: 'رقم', zh: '数字', ja: '数' } },
   { id: 'nepal', category: 'country', translations: { en: 'Nepal', uz: 'Nepal', ru: 'Непал', de: 'Nepal', fr: 'Népal', es: 'Nepal', tr: 'Nepal', ar: 'نيبال', zh: '尼泊尔', ja: 'ネパール' } },
@@ -133,11 +105,9 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'new-zealand', category: 'country', translations: { en: 'New Zealand', uz: 'Yangi Zelandiya', ru: 'Новая Зеландия', de: 'Neuseeland', fr: 'Nouvelle-Zélande', es: 'Nueva Zelanda', tr: 'Yeni Zelanda', ar: 'نيوزيلندا', zh: '新西兰', ja: 'ニュージーランド' } },
   { id: 'nigeria', category: 'country', translations: { en: 'Nigeria', uz: 'Nigeriya', ru: 'Нигерия', de: 'Nigeria', fr: 'Nigéria', es: 'Nigeria', tr: 'Nijerya', ar: 'نيجيريا', zh: '尼日利亚', ja: 'ナイジェリア' } },
   { id: 'norway', category: 'country', translations: { en: 'Norway', uz: 'Norvegiya', ru: 'Норвегия', de: 'Norwegen', fr: 'Norvège', es: 'Noruega', tr: 'Norveç', ar: 'النرويج', zh: '挪威', ja: 'ノルウェー' } },
-  // O
   { id: 'ocean', category: 'word', translations: { en: 'Ocean', uz: 'Okean', ru: 'Океан', de: 'Ozean', fr: 'Océan', es: 'Océano', tr: 'Okyanus', ar: 'محيط', zh: '海洋', ja: '海' } },
   { id: 'orange', category: 'word', translations: { en: 'Orange', uz: 'Apelsin', ru: 'Апельсин', de: 'Orange', fr: 'Orange', es: 'Naranja', tr: 'Portakal', ar: 'برتقال', zh: '橙子', ja: 'オレンジ' } },
   { id: 'oman', category: 'country', translations: { en: 'Oman', uz: 'Ummon', ru: 'Оман', de: 'Oman', fr: 'Oman', es: 'Omán', tr: 'Umman', ar: 'عمان', zh: '阿曼', ja: 'オマーン' } },
-  // P
   { id: 'paper', category: 'word', translations: { en: 'Paper', uz: 'Qog\'oz', ru: 'Бумага', de: 'Papier', fr: 'Papier', es: 'Papel', tr: 'Kağıt', ar: 'ورق', zh: '纸', ja: '紙' } },
   { id: 'phone', category: 'word', translations: { en: 'Phone', uz: 'Telefon', ru: 'Телефон', de: 'Telefon', fr: 'Téléphone', es: 'Teléfono', tr: 'Telefon', ar: 'هاتف', zh: '电话', ja: '電話' } },
   { id: 'pakistan', category: 'country', translations: { en: 'Pakistan', uz: 'Pokiston', ru: 'Пакистан', de: 'Pakistan', fr: 'Pakistan', es: 'Pakistán', tr: 'Pakistan', ar: 'باكستان', zh: '巴基斯坦', ja: 'パキスタン' } },
@@ -148,10 +118,8 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'philippines', category: 'country', translations: { en: 'Philippines', uz: 'Filippin', ru: 'Филиппины', de: 'Philippinen', fr: 'Philippines', es: 'Filipinas', tr: 'Filipinler', ar: 'الفلبين', zh: '菲律宾', ja: 'フィリピン' } },
   { id: 'poland', category: 'country', translations: { en: 'Poland', uz: 'Polsha', ru: 'Польша', de: 'Polen', fr: 'Pologne', es: 'Polonia', tr: 'Polonya', ar: 'بولندا', zh: '波兰', ja: 'ポーランド' } },
   { id: 'portugal', category: 'country', translations: { en: 'Portugal', uz: 'Portugaliya', ru: 'Португалия', de: 'Portugal', fr: 'Portugal', es: 'Portugal', tr: 'Portekiz', ar: 'البرتغال', zh: '葡萄牙', ja: 'ポルトガル' } },
-  // Q
   { id: 'queen', category: 'word', translations: { en: 'Queen', uz: 'Qirolicha', ru: 'Королева', de: 'Königin', fr: 'Reine', es: 'Reina', tr: 'Kraliçe', ar: 'ملكة', zh: '女王', ja: '女王' } },
   { id: 'qatar', category: 'country', translations: { en: 'Qatar', uz: 'Qatar', ru: 'Катар', de: 'Katar', fr: 'Qatar', es: 'Catar', tr: 'Katar', ar: 'قطر', zh: '卡塔尔', ja: 'カタール' } },
-  // R
   { id: 'rain', category: 'word', translations: { en: 'Rain', uz: 'Yomg\'ir', ru: 'Дождь', de: 'Regen', fr: 'Pluie', es: 'Lluvia', tr: 'Yağmur', ar: 'مطر', zh: '雨', ja: '雨' } },
   { id: 'road', category: 'word', translations: { en: 'Road', uz: 'Yo\'l', ru: 'Дорога', de: 'Straße', fr: 'Route', es: 'Camino', tr: 'Yol', ar: 'طريق', zh: '路', ja: '道路' } },
   { id: 'romania', category: 'country', translations: { en: 'Romania', uz: 'Ruminiya', ru: 'Румыния', de: 'Rumänien', fr: 'Roumanie', es: 'Rumania', tr: 'Romanya', ar: 'رومانيا', zh: '罗马尼亚', ja: 'ルーマニア' } },
@@ -426,7 +394,9 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'force', category: 'word', translations: { en: 'Force', uz: 'Kuch', ru: 'Сила', de: 'Kraft', fr: 'Force', es: 'Fuerza', tr: 'Güç', ar: 'قوة', zh: '力量', ja: '力' } },
   { id: 'education', category: 'word', translations: { en: 'Education', uz: 'Ta\'lim', ru: 'Образование', de: 'Bildung', fr: 'Éducation', es: 'Educación', tr: 'Eğitim', ar: 'تعليم', zh: '教育', ja: '教育' } },
   { id: 'foot', category: 'word', translations: { en: 'Foot', uz: 'Oyoq', ru: 'Ступня', de: 'Fuß', fr: 'Pied', es: 'Pie', tr: 'Ayak', ar: 'قدم', zh: '脚', ja: '足' } },
+  { id: 'hand', category: 'word', translations: { en: 'Hand', uz: 'Qo\'l', ru: 'Рука', de: 'Hand', fr: 'Main', es: 'Mano', tr: 'El', ar: 'يد', zh: '手', ja: '手' } },
   { id: 'finger', category: 'word', translations: { en: 'Finger', uz: 'Barmoq', ru: 'Палец', de: 'Finger', fr: 'Doigt', es: 'Dedo', tr: 'Parmak', ar: 'إصبع', zh: '手指', ja: '指' } },
+  { id: 'eye', category: 'word', translations: { en: 'Eye', uz: 'Ko\'z', ru: 'Глаз', de: 'Auge', fr: 'Œil', es: 'Ojo', tr: 'Göz', ar: 'عين', zh: '眼睛', ja: '目' } },
   { id: 'mouth', category: 'word', translations: { en: 'Mouth', uz: 'Og\'iz', ru: 'Rot', de: 'Mund', fr: 'Bouche', es: 'Boca', tr: 'Ağız', ar: 'فم', zh: '嘴', ja: '口' } },
   { id: 'ear', category: 'word', translations: { en: 'Ear', uz: 'Quloq', ru: 'Ухо', de: 'Ohr', fr: 'Oreille', es: 'Oreja', tr: 'Kulak', ar: 'أذن', zh: '耳朵', ja: '耳' } },
   { id: 'nose', category: 'word', translations: { en: 'Nose', uz: 'Burun', ru: 'Nos', de: 'Nase', fr: 'Nez', es: 'Nariz', tr: 'Burun', ar: 'أنف', zh: '鼻子', ja: '鼻' } },
@@ -605,36 +575,3 @@ export const dictionary: DictionaryEntry[] = [
   { id: 'stomach', category: 'word', translations: { en: 'Stomach', uz: 'Oshqozon', ru: 'Zheludok', de: 'Magen', fr: 'Estomac', es: 'Estómago', tr: 'Mide', ar: 'معدة', zh: '胃', ja: '胃' } },
   { id: 'back_v2', category: 'word', translations: { en: 'Back', uz: 'Orqa', ru: 'Spina', de: 'Rücken', fr: 'Dos', es: 'Espalda', tr: 'Sırt', ar: 'ظهر', zh: '背', ja: '背中' } },
   { id: 'heart_v2', category: 'word', translations: { en: 'Heart', uz: 'Yurak', ru: 'Serdtse', de: 'Herz', fr: 'Cœur', es: 'Corazón', tr: 'Kalp', ar: 'قلب', zh: '心', ja: '心' } },
-  { id: 'algorithm', category: 'word', translations: { en: 'Algorithm', uz: 'Algoritm', ru: 'Алгоритм', de: 'Algorithmus', fr: 'Algorithme', es: 'Algoritmo', tr: 'Algoritma', ar: 'خوارزمية', zh: '算法', ja: 'アルゴリズム' } },
-  { id: 'database', category: 'word', translations: { en: 'Database', uz: 'Ma\'lumotlar bazasi', ru: 'База данных', de: 'Datenbank', fr: 'Base de données', es: 'Base de datos', tr: 'Veri tabanı', ar: 'قاعدة بيانات', zh: '数据库', ja: 'データベース' } },
-  { id: 'encryption', category: 'word', translations: { en: 'Encryption', uz: 'Shifrlash', ru: 'Шифрование', de: 'Verschlüsselung', fr: 'Chiffrement', es: 'Cifrado', tr: 'Şifreleme', ar: 'تشفير', zh: '加密', ja: '暗号化' } },
-  { id: 'network', category: 'word', translations: { en: 'Network', uz: 'Tarmoq', ru: 'Сеть', de: 'Netzwerk', fr: 'Réseau', es: 'Red', tr: 'Ağ', ar: 'شبكة', zh: '网络', ja: 'ネットワーク' } },
-  { id: 'security', category: 'word', translations: { en: 'Security', uz: 'Xavfsizlik', ru: 'Безопасность', de: 'Sicherheit', fr: 'Sécurité', es: 'Seguridad', tr: 'Güvenlik', ar: 'أمن', zh: '安全', ja: 'セキュリティ' } },
-  { id: 'interface', category: 'word', translations: { en: 'Interface', uz: 'Interfeys', ru: 'Интерфейс', de: 'Schnittstelle', fr: 'Interface', es: 'Interfaz', tr: 'Arayüz', ar: 'واجهة', zh: '界面', ja: 'インターフェース' } },
-  { id: 'protocol', category: 'word', translations: { en: 'Protocol', uz: 'Protokol', ru: 'Протокол', de: 'Protokoll', fr: 'Protocole', es: 'Protocolo', tr: 'Protocol', ar: 'بروتوكول', zh: '协议', ja: 'プロトコル' } },
-  { id: 'hardware', category: 'word', translations: { en: 'Hardware', uz: 'Apparat ta\'minoti', ru: 'Аппаратное обеспечение', de: 'Hardware', fr: 'Matériel', es: 'Hardware', tr: 'Donanım', ar: 'عتاد', zh: '硬件', ja: 'ハードウェア' } },
-  { id: 'software', category: 'word', translations: { en: 'Software', uz: 'Dasturiy ta\'minot', ru: 'Программное обеспечение', de: 'Software', fr: 'Logiciel', es: 'Software', tr: 'Yazılım', ar: 'برمجيات', zh: '软件', ja: 'ソフトウェア' } },
-  { id: 'processor', category: 'word', translations: { en: 'Processor', uz: 'Protsessor', ru: 'Процессор', de: 'Prozessor', fr: 'Processeur', es: 'Procesador', tr: 'İşlemci', ar: 'معالج', zh: '处理器', ja: 'プロセッサ' } },
-  { id: 'ai', category: 'word', translations: { en: 'Artificial Intelligence', uz: 'Sun\'iy intellekt', ru: 'Искусственный интеллект', de: 'Künstliche Intelligenz', fr: 'Intelligence artificielle', es: 'Inteligencia artificial', tr: 'Yapay zeka', ar: 'ذكاء اصطناعي', zh: '人工智能', ja: '人工知能' } },
-  { id: 'ml', category: 'word', translations: { en: 'Machine Learning', uz: 'Mashinali o\'rganish', ru: 'Машинное обучение', de: 'Maschinelles Lernen', fr: 'Apprentissage automatique', es: 'Apprentissage automatique', tr: 'Makine öğrenimi', ar: 'تعلم الآلة', zh: '机器学习', ja: '機械学習' } },
-  { id: 'neural_network', category: 'word', translations: { en: 'Neural Network', uz: 'Neyron tarmoq', ru: 'Нейронная сеть', de: 'Neuronales Netz', fr: 'Réseau de neurones', es: 'Red neuronal', tr: 'Sinir ağı', ar: 'شبكة عصبية', zh: '神经网络', ja: 'ニューラルネットワーク' } },
-  { id: 'quantum', category: 'word', translations: { en: 'Quantum', uz: 'Kvant', ru: 'Квант', de: 'Quanten', fr: 'Quantique', es: 'Cuántico', tr: 'Kuantum', ar: 'كم', zh: '量子', ja: '量子' } },
-  { id: 'cyber', category: 'word', translations: { en: 'Cyber', uz: 'Kiber', ru: 'Кибер', de: 'Cyber', fr: 'Cyber', es: 'Ciber', tr: 'Siber', ar: 'سيبراني', zh: '网络', ja: 'サイバー' } },
-  { id: 'digital', category: 'word', translations: { en: 'Digital', uz: 'Raqamli', ru: 'Цифровой', de: 'Digital', fr: 'Numérique', es: 'Digital', tr: 'Dijital', ar: 'رقمي', zh: '数字', ja: 'デジタル' } },
-  { id: 'virtual', category: 'word', translations: { en: 'Virtual', uz: 'Virtual', ru: 'Виртуальный', de: 'Virtuell', fr: 'Virtuel', es: 'Virtual', tr: 'Sanal', ar: 'افتراضي', zh: '虚拟', ja: '仮想' } },
-  { id: 'augmented', category: 'word', translations: { en: 'Augmented', uz: 'Kengaytirilgan', ru: 'Дополненный', de: 'Erweitert', fr: 'Augmenté', es: 'Aumentado', tr: 'Artırılmış', ar: 'معزز', zh: '增强', ja: '拡張' } },
-  { id: 'cloud_tech', category: 'word', translations: { en: 'Cloud', uz: 'Bulutli', ru: 'Облако', de: 'Cloud', fr: 'Nuage', es: 'Nube', tr: 'Bulut', ar: 'سحابي', zh: '云', ja: 'クラウド' } },
-  { id: 'data_tech', category: 'word', translations: { en: 'Data', uz: 'Ma\'lumotlar', ru: 'Данные', de: 'Daten', fr: 'Données', es: 'Datos', tr: 'Veri', ar: 'بيانات', zh: '数据', ja: 'データ' } },
-  { id: 'success', category: 'word', translations: { en: 'Success', uz: 'Muvaffaqiyat', ru: 'Успех', de: 'Erfolg', fr: 'Succès', es: 'Éxito', tr: 'Başarı', ar: 'نجاح', zh: '成功', ja: '成功' } },
-  { id: 'failure', category: 'word', translations: { en: 'Failure', uz: 'Muvaffaqiyatsizlik', ru: 'Неудача', de: 'Fehlschlag', fr: 'Échec', es: 'Fracaso', tr: 'Başarısızlık', ar: 'فشل', zh: '失败', ja: '失敗' } },
-  { id: 'happiness', category: 'word', translations: { en: 'Happiness', uz: 'Baxt', ru: 'Счастье', de: 'Glück', fr: 'Bonheur', es: 'Felicidad', tr: 'Mutluluk', ar: 'سعادة', zh: '幸福', ja: '幸福' } },
-  { id: 'sadness', category: 'word', translations: { en: 'Sadness', uz: 'Xafalik', ru: 'Грусть', de: 'Traurigkeit', fr: 'Tristesse', es: 'Tristeza', tr: 'Üzüntü', ar: 'حزن', zh: '悲伤', ja: '悲しみ' } },
-  { id: 'friendship', category: 'word', translations: { en: 'Friendship', uz: 'Do\'stlik', ru: 'Дружба', de: 'Freundschaft', fr: 'Amitié', es: 'Amistad', tr: 'Dostluk', ar: 'صداقة', zh: '友谊', ja: '友情' } },
-  { id: 'peace', category: 'word', translations: { en: 'Peace', uz: 'Tinchlik', ru: 'Мир', de: 'Frieden', fr: 'Paix', es: 'Paz', tr: 'Barış', ar: 'سلام', zh: '和平', ja: '平和' } },
-  { id: 'freedom', category: 'word', translations: { en: 'Freedom', uz: 'Ozodlik', ru: 'Свобода', de: 'Freiheit', fr: 'Liberté', es: 'Libertad', tr: 'Özgürlük', ar: 'حرية', zh: '自由', ja: '自由' } },
-  { id: 'justice', category: 'word', translations: { en: 'Justice', uz: 'Adolat', ru: 'Справедливость', de: 'Gerechtigkeit', fr: 'Justice', es: 'Justicia', tr: 'Adalet', ar: 'عدالة', zh: '正义', ja: '正義' } },
-  { id: 'purple', category: 'word', translations: { en: 'Purple', uz: 'Siyohrang', ru: 'Фиолетовый', de: 'Lila', fr: 'Violet', es: 'Púrpura', tr: 'Mor', ar: 'أرجواني', zh: '紫色', ja: '紫' } },
-  { id: 'pink', category: 'word', translations: { en: 'Pink', uz: 'Pushti', ru: 'Розовый', de: 'Rosa', fr: 'Rose', es: 'Rosa', tr: 'Pembe', ar: 'وردي', zh: '粉红色', ja: 'ピンク' } },
-  { id: 'brown', category: 'word', translations: { en: 'Brown', uz: 'Jigarrang', ru: 'Коричневый', de: 'Braun', fr: 'Brun', es: 'Marrón', tr: 'Kahverengi', ar: 'بني', zh: '棕色', ja: '茶色' } },
-  { id: 'gray', category: 'word', translations: { en: 'Gray', uz: 'Kulrang', ru: 'Серый', de: 'Grau', fr: 'Gris', es: 'Gris', tr: 'Gri', ar: 'رمادي', zh: '灰色', ja: '灰色' } },
-];

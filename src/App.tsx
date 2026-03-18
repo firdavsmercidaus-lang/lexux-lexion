@@ -12,16 +12,21 @@ import {
   Box
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { GoogleGenAI, Type } from "@google/genai";
 import { languages, dictionary, DictionaryEntry } from './data/dictionary';
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export default function App() {
   const [sourceLang, setSourceLang] = useState('en');
   const [targetLang, setTargetLang] = useState('uz');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedEntry, setSelectedEntry] = useState<DictionaryEntry | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<'word' | 'country'>('word');
+  const [selectedCategory, setSelectedCategory] = useState<'word'>('word');
   const [systemStatus, setSystemStatus] = useState('READY');
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [isNeuralLoading, setIsNeuralLoading] = useState(false);
+  const [neuralResult, setNeuralResult] = useState<DictionaryEntry | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -50,8 +55,47 @@ export default function App() {
 
   const handleEntryClick = (entry: DictionaryEntry) => {
     setSelectedEntry(entry);
+    setNeuralResult(null);
     setSystemStatus('ANALYZING');
     setTimeout(() => setSystemStatus('READY'), 800);
+  };
+
+  const handleNeuralSearch = async () => {
+    if (!searchQuery.trim()) return;
+    
+    setIsNeuralLoading(true);
+    setSystemStatus('NEURAL_SYNC');
+    
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: `Translate the word "${searchQuery}" from ${languages.find(l => l.id === sourceLang)?.name} to all these languages: ${languages.map(l => l.name).join(', ')}. Return ONLY a JSON object with this structure: { "id": "${searchQuery.toLowerCase()}", "category": "word", "translations": { "en": "...", "uz": "...", "ru": "...", "de": "...", "fr": "...", "es": "...", "tr": "...", "ar": "...", "zh": "...", "ja": "..." } }`,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              id: { type: Type.STRING },
+              category: { type: Type.STRING },
+              translations: {
+                type: Type.OBJECT,
+                properties: languages.reduce((acc, lang) => ({ ...acc, [lang.id]: { type: Type.STRING } }), {})
+              }
+            }
+          }
+        }
+      });
+
+      const data = JSON.parse(response.text);
+      setNeuralResult(data);
+      setSelectedEntry(data);
+      setSystemStatus('READY');
+    } catch (error) {
+      console.error("Neural Search Error:", error);
+      setSystemStatus('ERROR');
+    } finally {
+      setIsNeuralLoading(false);
+    }
   };
 
   return (
@@ -145,14 +189,6 @@ export default function App() {
             >
               [ Sector: Lexicon ]
             </button>
-            <button
-              onClick={() => setSelectedCategory('country')}
-              className={`flex-1 p-2 edex-border glass-panel text-[10px] font-bold uppercase tracking-widest transition-all ${
-                selectedCategory === 'country' ? 'bg-neon-amber/20 text-neon-amber border-neon-amber' : 'opacity-50 hover:opacity-100'
-              }`}
-            >
-              [ Sector: Geopolitics ]
-            </button>
           </div>
 
           <div className="edex-border glass-panel p-4">
@@ -180,11 +216,11 @@ export default function App() {
                     key={entry.id}
                     onClick={() => handleEntryClick(entry)}
                     className={`w-full grid grid-cols-2 p-4 text-left text-sm border-b border-white/5 transition-all hover:bg-white/5 group ${
-                      selectedEntry?.id === entry.id ? 'bg-neon-cyan/10 border-l-4 border-l-neon-cyan' : ''
+                      selectedEntry?.id === entry.id && !neuralResult ? 'bg-neon-cyan/10 border-l-4 border-l-neon-cyan' : ''
                     }`}
                   >
                     <div className="font-bold flex items-center gap-2">
-                      <ChevronRight className={`w-3 h-3 text-neon-cyan transition-transform ${selectedEntry?.id === entry.id ? 'rotate-90' : ''}`} />
+                      <ChevronRight className={`w-3 h-3 text-neon-cyan transition-transform ${selectedEntry?.id === entry.id && !neuralResult ? 'rotate-90' : ''}`} />
                       {entry.translations[sourceLang]}
                     </div>
                     <div className="text-neon-amber font-medium opacity-80 group-hover:opacity-100">
@@ -193,9 +229,34 @@ export default function App() {
                   </button>
                 ))
               ) : (
-                <div className="flex flex-col items-center justify-center h-full opacity-30 gap-4">
-                  <Terminal className="w-12 h-12" />
-                  <p className="text-xs uppercase tracking-[0.2em]">No Data Found in Current Sector</p>
+                <div className="flex flex-col items-center justify-center h-full p-8 text-center gap-4">
+                  <Terminal className="w-12 h-12 opacity-30" />
+                  <p className="text-xs uppercase tracking-[0.2em] opacity-50">Local Database Exhausted</p>
+                  <button
+                    onClick={handleNeuralSearch}
+                    disabled={isNeuralLoading}
+                    className="w-full p-3 edex-border bg-neon-cyan/10 text-neon-cyan text-[10px] font-bold uppercase tracking-widest hover:bg-neon-cyan/20 transition-all disabled:opacity-50"
+                  >
+                    {isNeuralLoading ? '[ SYNCING NEURAL CORE... ]' : '[ INITIALIZE NEURAL TRANSLATION ]'}
+                  </button>
+                </div>
+              )}
+              
+              {neuralResult && (
+                <div className="p-4 bg-neon-cyan/5 border-t border-neon-cyan/20">
+                  <div className="text-[10px] text-neon-cyan uppercase mb-2">Neural Result:</div>
+                  <button
+                    onClick={() => handleEntryClick(neuralResult)}
+                    className={`w-full grid grid-cols-2 p-4 text-left text-sm border edex-border transition-all bg-neon-cyan/10 border-neon-cyan`}
+                  >
+                    <div className="font-bold flex items-center gap-2 text-neon-cyan">
+                      <Zap className="w-3 h-3 animate-pulse" />
+                      {neuralResult.translations[sourceLang]}
+                    </div>
+                    <div className="text-neon-amber font-bold">
+                      {neuralResult.translations[targetLang]}
+                    </div>
+                  </button>
                 </div>
               )}
             </div>
